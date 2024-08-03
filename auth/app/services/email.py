@@ -1,5 +1,5 @@
 # send_mail
-from app.config.email import send_mail
+from email.email import send_mail
 from app.models.user import UserModel
 from app.config.security import hashed_password
 from app.config.setting import BACKEND_HOST

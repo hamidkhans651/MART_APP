@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes.user import router as user_router
-from app.config.database import lifespan
+from email.config.database import lifespan
 
 app: FastAPI = FastAPI(
     lifespan=lifespan,

@@ -2,7 +2,7 @@ from aiokafka import AIOKafkaProducer
 from app.models.user import UserModel, UserTokenModel
 from fastapi import APIRouter, Depends, status
 from app.schemas.user import CreateUser, SendUserToken
-from app.config.database import get_session
+from email.config.database import get_session
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel import Session, select
 from typing import Annotated

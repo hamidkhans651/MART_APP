@@ -20,15 +20,26 @@ services:
     build:
       context: ./auth
       dockerfile: Dockerfile
-    container_name: authCoun
+    container_name: auth
     ports:
-      - "8002:8002"
+      - "8003:8003"
     volumes:
-      - ./auth:/code
+      - ./email:/code
     depends_on:
       - postgres_db
       - smtp-service
       - broker
+  email:
+    build:
+      context: ./email
+      dockerfile: Dockerfile
+    container_name: email
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./email:/code
+    depends_on:
+      - postgres_db
 
   smtp-service:
     image: axllent/mailpit
