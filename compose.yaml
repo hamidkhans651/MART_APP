@@ -22,9 +22,9 @@ services:
       dockerfile: Dockerfile
     container_name: auth
     ports:
-      - "8003:8003"
+      - "8001:8001"
     volumes:
-      - ./email:/code
+      - ./auth:/code
     depends_on:
       - postgres_db
       - smtp-service
