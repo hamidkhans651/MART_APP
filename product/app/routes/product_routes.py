@@ -20,3 +20,5 @@ def add_images_in_product(message: Annotated[str, Depends]):
             status_code=500, detail="Some things went wrong, while creating product.")
     return message
 
+
+

@@ -1,21 +1,6 @@
 version: "3.9"
 name: "basic-mart"
 services:
-
-  api:
-    build:
-      context: ./mart
-      dockerfile: Dockerfile
-    container_name: martCont
-    ports:
-      - "8000:8000"
-    volumes:
-      - "./mart:/code/"   # Volume bind mounting
-    depends_on:
-      - postgres_db
-      - broker
-      - auth
-
   auth:
     build:
       context: ./auth
@@ -54,7 +39,7 @@ services:
     restart: always
     container_name: postgresCont
     environment:
-      - POSTGRES_USER=shoaib
+      - POSTGRES_USER=hamid
       - POSTGRES_PASSWORD=mypassword
       - POSTGRES_DB=mydatabase
     ports:
