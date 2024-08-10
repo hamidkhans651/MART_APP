@@ -2,10 +2,12 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-@app.get("/")
-def top():
-    return "top is here"
 
-if __name__ == "__main__":
- import uvicorn
- uvicorn.run("main:app", reload=True)
+@app.get("/")
+async def read_root():
+    return{"hellow":"this is email api"}
+
+
+@app.get("/dev")
+def checkdev():
+    return "this is an dev container"
