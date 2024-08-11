@@ -1,58 +1,91 @@
-
 name: "basic-mart"
 services:
-  auth:
+  auth_service:
     build:
-      context: ./auth
-      dockerfile: Dockerfile
-    container_name: auth
+      context: ./auth_service
+      dockerfile: Dockerfile.dev
+    container_name: auth_serviceCont
     ports:
       - "8000:8000"
     volumes:
-      - ./auth:/code
+      - ./auth_service:/code
     depends_on:
       - postgres_db
-  
-  product:
-    build:
-      context: ./product
-      dockerfile: Dockerfile
-    container_name: product_services
-    ports:
-      - "8003:8003"
-    volumes:
-      - ./auth:/code
-    depends_on:
-      - postgres_db
-      
   email:
     build:
       context: ./email
       dockerfile: Dockerfile
-    container_name: email
+    container_name: email_service_Cont
     ports:
-      - "8002:8002"
+      - "8001:8001"
     volumes:
       - ./email:/code
     depends_on:
       - postgres_db
+  inventory:
+    build:
+      context: ./Inventory
+      dockerfile: Dockerfile
+    container_name: Inventory_service_Cont
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./Inventory:/code
+    depends_on:
+      - postgres_db
+
+  notification:
+    build:
+      context: ./notification
+      dockerfile: Dockerfile
+    container_name: notification_service_Cont
+    ports:
+      - "8003:8003"
+    volumes:
+      - ./notification:/code
+    depends_on:
+      - postgres_db
+  
+  order:
+    build:
+      context: ./order
+      dockerfile: Dockerfile
+    container_name: order_service_Cont
+    ports:
+      - "8004:8004"
+    volumes:
+      - ./order:/code
+    depends_on:
+      - postgres_db
+
+  payment:
+    build:
+      context: ./payment
+      dockerfile: Dockerfile
+    container_name: payment_service_Cont
+    ports:
+      - "8005:8005"
+    volumes:
+      - ./payment:/code
+    depends_on:
+      - postgres_db
+
 
   smtp-service:
     image: axllent/mailpit
     restart: unless-stopped
     container_name: smtpCount
     ports:
-      - "8025:8025"
-      - "1025:1025"
+      - "8006:8006"
 
   postgres_db:
     image: postgres:latest
     restart: always
     container_name: postgresCont
     environment:
-      - POSTGRES_USER=hamid
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=MartApiDb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=hamid2264
+      - POSTGRES_DB=postgres
     ports:
       - "5432:5432"
     volumes:
