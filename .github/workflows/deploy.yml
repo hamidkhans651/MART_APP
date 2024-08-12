@@ -36,7 +36,7 @@ jobs:
             --name mycontainerapp \
             --resource-group myresourcegroup \
             --environment mycontainerappenv \
-            --image ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:latest \
+            --image ${{ secrets.DOCKER_HUB_USERNAME }}/basic-mart-auth_service \
             --target-port 8000 \
             --ingress 'external' \
             --env-vars 'APP_SETTING=my-setting'
