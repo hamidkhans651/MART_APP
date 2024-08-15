@@ -9,6 +9,12 @@ async def read_root():
     return{"hellow":"this is email api"}
 
 
+@app.get("/")
+async def read_root():
+    return{"hellow":"this is email api"}
+
+
+
 @app.post("/food-items/", response_model=schemas.FoodItem)
 def create_food_item(food_item: schemas.FoodItemCreate, db: Session = Depends(database.get_db)):
     db_food_item = models.FoodItem(**food_item.dict())
