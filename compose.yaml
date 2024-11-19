@@ -11,64 +11,66 @@ services:
       - ./auth_service:/code
     depends_on:
       - postgres_db
-  email:
-    build:
-      context: ./email
-      dockerfile: Dockerfile
-    container_name: email_service_Cont
-    ports:
-      - "8001:8001"
-    volumes:
-      - ./email:/code
-    depends_on:
-      - postgres_db
-  inventory:
-    build:
-      context: ./Inventory
-      dockerfile: Dockerfile
-    container_name: Inventory_service_Cont
-    ports:
-      - "8002:8002"
-    volumes:
-      - ./Inventory:/code
-    depends_on:
-      - postgres_db
 
-  notification:
-    build:
-      context: ./notification
-      dockerfile: Dockerfile
-    container_name: notification_service_Cont
-    ports:
-      - "8003:8003"
-    volumes:
-      - ./notification:/code
-    depends_on:
-      - postgres_db
+
+  # email:
+  #   build:
+  #     context: ./email
+  #     dockerfile: Dockerfile
+  #   container_name: email_service_Cont
+  #   ports:
+  #     - "8001:8001"
+  #   volumes:
+  #     - ./email:/code
+  #   depends_on:
+  #     - postgres_db
+  # inventory:
+  #   build:
+  #     context: ./Inventory
+  #     dockerfile: Dockerfile
+  #   container_name: Inventory_service_Cont
+  #   ports:
+  #     - "8002:8002"
+  #   volumes:
+  #     - ./Inventory:/code
+  #   depends_on:
+  #     - postgres_db
+
+  # notification:
+  #   build:
+  #     context: ./notification
+  #     dockerfile: Dockerfile
+  #   container_name: notification_service_Cont
+  #   ports:
+  #     - "8003:8003"
+  #   volumes:
+  #     - ./notification:/code
+  #   depends_on:
+  #     - postgres_db
   
-  order:
-    build:
-      context: ./order
-      dockerfile: Dockerfile
-    container_name: order_service_Cont
-    ports:
-      - "8004:8004"
-    volumes:
-      - ./order:/code
-    depends_on:
-      - postgres_db
+  # order:
+  #   build:
+  #     context: ./order
+  #     dockerfile: Dockerfile
+  #   container_name: order_service_Cont
+  #   ports:
+  #     - "8004:8004"
+  #   volumes:
+  #     - ./order:/code
+  #   depends_on:
+  #     - postgres_db
 
-  payment:
-    build:
-      context: ./payment
-      dockerfile: Dockerfile
-    container_name: payment_service_Cont
-    ports:
-      - "8005:8005"
-    volumes:
-      - ./payment:/code
-    depends_on:
-      - postgres_db
+  # payment:
+  #   build:
+  #     context: ./payment
+  #     dockerfile: Dockerfile
+  #   container_name: payment_service_Cont
+  #   ports:
+  #     - "8005:8005"
+  #   volumes:
+  #     - ./payment:/code
+  #   depends_on:
+  #     - postgres_db
 
 
   smtp-service:
@@ -124,6 +126,16 @@ services:
       DYNAMIC_CONFIG_ENABLED: "true"
     depends_on:
       - broker
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    environment:
+      TUNNEL_URL: http://api:8000
+    command: "tunnel --no-autoupdate"
+    volumes:
+      - ./cloudflared:/etc/cloudflared
+    depends_on:
+      - auth_service
 
 volumes:
   postgres_db:
