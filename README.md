@@ -1,7 +1,7 @@
  # Mart project
 
  
-![PROJECT](Screenshot 2024-11-19 124116.png)
+![PROJECT](project.png)
 
 
 
